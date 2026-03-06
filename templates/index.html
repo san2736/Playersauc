@@ -1,0 +1,44 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>IPL Auction</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<h1>IPL Player Auction</h1>
+
+<form method="GET">
+<select name="country">
+<option value="">All</option>
+<option value="India">Indian</option>
+<option value="Australia">Australian</option>
+<option value="England">English</option>
+</select>
+
+<button type="submit">Filter</button>
+</form>
+
+<div class="players">
+
+{% for player in players %}
+
+<div class="card">
+
+<h3>{{player[1]}}</h3>
+<p>{{player[2]}}</p>
+<p>{{player[3]}}</p>
+
+<a href="/player/{{player[0]}}">View Player</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</body>
+</html>
