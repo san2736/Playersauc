@@ -1,0 +1,26 @@
+import requests
+import psycopg2
+import os
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+conn = psycopg2.connect(DATABASE_URL)
+cur = conn.cursor()
+
+url = "https://api.cricketdata.org/v1/players?apikey=YOURKEY"
+
+response = requests.get(url)
+data = response.json()
+
+for p in data["data"]:
+
+    name = p["name"]
+    country = p["country"]
+    role = p["role"]
+
+    cur.execute(
+        "INSERT INTO players(name,country,role,strike_rate,base_price) VALUES(%s,%s,%s,%s,%s)",
+        (name, country, role, 120, 5000000)
+    )
+
+conn.commit()
